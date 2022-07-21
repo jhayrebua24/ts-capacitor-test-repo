@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@capacitor/android": "^3.6.0",
+    "@capacitor/cli": "^3.6.0",
+    "@capacitor/core": "^3.6.0",
+    "@capacitor/dialog": "^1.0.7",
+    "@capacitor/ios": "^3.6.0",
     "@tanstack/react-query": "^4.0.8",
     "@tanstack/react-query-devtools": "^4.0.8",
     "@testing-library/jest-dom": "^5.16.4",
