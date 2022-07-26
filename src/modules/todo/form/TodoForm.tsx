@@ -8,18 +8,22 @@ import {
   FormikValues,
   FormikHelpers,
 } from "formik";
-import { useAddTodo } from "todo/hooks";
+import { useAddTodoMutation } from "modules/todo/api";
 import * as yup from "yup";
 
 function TodoForm(): JSX.Element {
-  const [submit, isLoading] = useAddTodo();
+  const [addTodo, { isLoading }] = useAddTodoMutation();
 
   const onSubmit = async (
     values: FormikValues,
     { resetForm }: FormikHelpers<any>,
   ) => {
     //
-    await submit(values);
+    await addTodo({
+      userId: Math.floor(Math.random() * 999999),
+      id: Math.floor(Math.random() * 999999),
+      ...values,
+    }).unwrap();
     resetForm();
   };
 
@@ -32,14 +36,12 @@ function TodoForm(): JSX.Element {
     >
       <Formik
         initialValues={{
-          userId: 12312412,
-          id: "123123",
-          name: "",
+          title: "",
           completed: false,
         }}
         onSubmit={onSubmit}
         validationSchema={yup.object().shape({
-          name: yup.string().required(),
+          title: yup.string().required(),
         })}
       >
         {({ handleSubmit }: FormikProps<any>) => (
@@ -50,9 +52,9 @@ function TodoForm(): JSX.Element {
                 flexDirection: "column",
               }}
             >
-              <label htmlFor="name">Name</label>
-              <Field name="name" type="text" />
-              <ErrorMessage name="name" />
+              <label htmlFor="title">Title</label>
+              <Field name="title" type="text" />
+              <ErrorMessage name="title" />
             </div>
             <div
               style={{
