@@ -19,8 +19,7 @@ export const todoApi = createApi({
               ...results.map(({ id }) => ({ type: TODOS, id } as const)),
               { type: TODOS, id: "LIST" },
             ]
-          : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
-            [{ type: TODOS, id: "LIST" }],
+          : [{ type: TODOS, id: "LIST" }],
     }),
     addTodo: builder.mutation<ITodo, Partial<ITodo>>({
       query(body) {
@@ -30,8 +29,6 @@ export const todoApi = createApi({
           body,
         };
       },
-      // Invalidates all Post-type queries providing the `LIST` id - after all, depending of the sort order,
-      // that newly created post could show up in any lists.
       invalidatesTags: [{ type: TODOS, id: "LIST" }],
     }),
     deletePost: builder.mutation<{ success: boolean; id: number }, number>({
