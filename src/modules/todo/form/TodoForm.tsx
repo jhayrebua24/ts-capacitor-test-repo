@@ -32,8 +32,8 @@ function TodoForm(): JSX.Element {
     >
       <Formik
         initialValues={{
-          userId: 12312412,
-          id: "123123",
+          userId: Math.floor(Math.random() * 999999),
+          id: Math.floor(Math.random() * 999999),
           title: "",
           completed: false,
         }}
