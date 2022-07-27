@@ -8,7 +8,7 @@ import {
   FormikValues,
   FormikHelpers,
 } from "formik";
-import { useAddTodo } from "todo/hooks";
+import { useAddTodo } from "modules/todo/hooks";
 import * as yup from "yup";
 
 function TodoForm(): JSX.Element {
@@ -34,12 +34,12 @@ function TodoForm(): JSX.Element {
         initialValues={{
           userId: 12312412,
           id: "123123",
-          name: "",
+          title: "",
           completed: false,
         }}
         onSubmit={onSubmit}
         validationSchema={yup.object().shape({
-          name: yup.string().required(),
+          title: yup.string().required(),
         })}
       >
         {({ handleSubmit }: FormikProps<any>) => (
@@ -50,9 +50,9 @@ function TodoForm(): JSX.Element {
                 flexDirection: "column",
               }}
             >
-              <label htmlFor="name">Name</label>
-              <Field name="name" type="text" />
-              <ErrorMessage name="name" />
+              <label htmlFor="name">Title</label>
+              <Field name="title" type="text" />
+              <ErrorMessage name="title" />
             </div>
             <div
               style={{
