@@ -1,19 +1,22 @@
 import "./App.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import Todo from "modules/todo";
 
-// Create a client
-const queryClient = new QueryClient();
+import { Box } from "@chakra-ui/react";
+import { useAuth } from "modules/auth/hooks";
+import PrivateRoutes from "routes/PrivateRoutes";
+import PublicRoutes from "routes/PublicRoutes";
 
 function App(): JSX.Element {
+  const { isAuth } = useAuth();
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools initialIsOpen={false} />
-      <div>
-        <Todo />
-      </div>
-    </QueryClientProvider>
+    <Box
+      minHeight="100vh"
+      minWidth="100vh"
+      overflowX="hidden"
+      display="relative"
+    >
+      {isAuth ? <PrivateRoutes /> : <PublicRoutes />}
+    </Box>
   );
 }
 
