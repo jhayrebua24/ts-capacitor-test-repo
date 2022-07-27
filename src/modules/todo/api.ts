@@ -7,7 +7,7 @@ export const todoApi = createApi({
   reducerPath: `api/${TODOS}`,
   tagTypes: [TODOS],
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000",
+    baseUrl: process.env.REACT_APP_ENDPOINT,
   }),
   endpoints: (builder) => ({
     getTodos: builder.query<ITodo[], void>({
@@ -31,7 +31,7 @@ export const todoApi = createApi({
       },
       invalidatesTags: [{ type: TODOS, id: "LIST" }],
     }),
-    deletePost: builder.mutation<{ success: boolean; id: number }, number>({
+    deletePost: builder.mutation<{ id: number }, number>({
       query(id) {
         return {
           url: `/todos/${id}`,
